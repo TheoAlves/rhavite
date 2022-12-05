@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<link rel="icon" href="img/logo.png" >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhavite | Quiz</title>
+    <style>
+	* {
+    margin: 0;
+    padding: 0;
+}
+.menu{
+	width:100%;
+}
+	.menu nav{
+		height: 54px;
+	}
+	
+	.menu	a {
+	display: block;
+	font-size: 20px;
+	font-family: tw cen mt condensed;
+	padding:0px 5px;
+	
+	}
+	. menu a img{
+		float: center;
+	}
+	.menu	ul {
+	list-style-type: none;
+	overflow: hidden;
+	height:54px;
+	background-color:#34402b ;
+	}
+	.menu li {
+	float: left;
+	line-height: 50px;
+	}
+	.menu li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 0 5 0 5 px;
+	padding-left: auto;
+	text-decoration: none;
+	float: center;
+	}
+	.menu li .active,.menu nav a:hover {
+	border-bottom: 4px dashed black;
+	color:black;
+	}
+/* vermelho #f44336 ou #d50000 verde #4caf50 ou #1b5e20  */
+:root {
+    --principal: #34402b;
+    --secundaria: #0d47a1;
+    --azul-escuro: #0d47a1;
+    --cinza-escuro: #222;
+    --branco: #fff;
+    --verde: #4caf50;
+    --vermelho: #f44336;
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+}
+
+section {
+    width: 100%;
+	height:530px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.75rem;
+	font-family: tw cen mt condensed;
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* classe para centralizar textos, paragrafos */
+.centro {
+    text-align: center;
+}
+
+/* div class questao com numero da questao e pergunta */
+.questao {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#numQuestao {
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: var(--principal);
+    color: #fff;
+    padding: 4px 10px 4px 10px;
+    border-radius: 10px;
+	font-size:18px;
+	font-family: tw cen mt condensed;
+    font-weight: bold;
+}
+
+#pergunta {
+	font-family: tw cen mt condensed;
+    font-size: 20px;
+    font-weight: bold;
+	margin-left:5px;
+}
+
+.imagemDaQuestao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* article que acomoda a questao completa */
+.questoes {
+    user-select: none;
+    background: #fff;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+	box-shadow: 0px 0 15px black;
+    border-radius: 10px;
+    margin-bottom: 0.625rem;
+}
+
+.questoes ol li {
+    border: 1px solid var(--principal);
+    display: block;
+    margin-bottom: 0.625rem;
+    padding: 1rem;
+    border-radius: 8px;
+	font-family: tw cen mt condensed;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+	color:#666d61;
+}
+
+.questoes ol li:hover {
+    background: var(--principal);
+    cursor: pointer;
+	color:white;
+}
+
+.bloqueado {
+    display: none;
+}
+
+.bloqueado li:hover {
+    display: none;
+}
+
+#instrucoes {
+    padding: 0.625rem;
+    border-radius: 8px;
+	font-family: tw cen mt condensed;
+    font-size: 20px;
+    font-weight: bold;
+	color:#666D61;
+    display: flex;
+    justify-content: center;
+}
+
+#aviso {
+    color: black;
+	font-family: tw cen mt condensed;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#autoria {
+	margin-top: 50px;
+	width: 100%;
+}
+
+/* ANIMACAO */
+
+/* Animar o input */
+@keyframes piscar {
+    0% {
+        filter: drop-shadow(0 0 15px var(--principal));
+        -webkit-filter: drop-shadow(0 0 15px var(--principal));
+        -moz-filter: drop-shadow(0 0 15px var(--principal));
+        -o-filter: drop-shadow(0 0 15px var(--principal));
+        -ms-filter: drop-shadow(0 0 15px var(--principal));
+    }
+    100% {
+    }
+}
+
+.animar {
+    animation: piscar .75s infinite alternate;
+}
+
+.aparecer {
+    animation: aparecer .5s infinite alternate;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.acertou {
+    background: var(--verde);
+    animation: aparecer 0.1s infinite alternate;
+}
+
+.errou {
+    background: var(--vermelho);
+    animation: aparecer 0.1s infinite alternate;
+}
+
+.placar {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--principal);
+    font-size: 2rem;
+}
+	</style>
+</head>
+<body>
+<div class="menu">
+	    <nav>   
+			<ul>
+				<li>
+					<a href="index.html" ><img src="img/logo.png" width="50" class="logo" title="Portal"></a>
+				</li>
+				<li>
+					<a href="inicial.html" title="Inicíal">Inícial</a>
+				</li>
+				<li>
+					<a href="saude.html" title="Saúde e Bem Estar">Saúde e Bem Estar</a>
+				</li>
+				<li>
+					<a href="receitas.html" title="Receitas">Receitas</a>
+				</li>
+				<li>
+					<a href="sobre.html" title="Sobre" >Sobre</a>
+				</li>
+				<li>
+					<a class="active" href="" title="Quiz">Quiz</a>
+				</li>
+		    </ul>
+	    </nav>
+</div>
+    <main class="tela-principal">
+
+        <section class='conteudos'>
+
+            <h1>Quiz Rhavite</h1>
+
+            <article class='centro' id='instrucoes'>
+                Leia a questão e clique na resposta correta
+            </article>
+
+            <article class='questoes'>
+                
+                <header class='questao'>
+                    <span id='numQuestao'></span>
+                    <h2 id='pergunta'></h2>
+                </header>
+                <div class='corpo'>
+                    <ol type='A' id='alternativas'>
+                        <li id='a' value='1A' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                        <li id='b' value='1B' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                        <li id='c' value='1C' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                        <li id='d' value='1D' class='respostas' onClick='verificarSeAcertou(this, this)'></li>
+                    </ol>
+                </div>
+            </article>
+            
+            <article id='aviso' class='centro'>
+                <input type="range" value='1' min='1' max='10' step='1'
+                name="progresso" id="progresso" disabled
+                /> <br>
+                <span id='numero'></span> de <span id='total'></span>
+            </article>
+        </section>
+<footer id='autoria' class='centro'>
+			<hr style="height:5px;border-width:0;color:rgb(0, 0, 0);background-color:rgb(0, 0, 0)">
+			<p>Todos os direitos reservados © Victor Varjão - Théo Alves - Sara Duarte</p>
+			<a href="https://www.instagram.com/rhavite_oficial/" target="_blank" title="Nos siga"><img src="img/insta.png" height="30px" ></a>
+			</footer>
+    </main>
+<audio preload src="som/positive.mp3" id='somAcerto'></audio>
+<audio preload src="som/negative.mp3" id='somErro'></audio>
+<audio preload src="som/aplausos.mp3" id='somAplausos'></audio>
+
+<script>
+/* Aula 20 MaiaQuiz  */
+let titulo     = document.querySelector('h1')
+let instrucoes = document.querySelector('#instrucoes')
+let aviso      = document.querySelector('#aviso')
+let progresso  = document.querySelector('#progresso')
+let pontos = 0 // pontos para o placar
+let placar = 0 // placar
+
+// AUDIO
+let somAcerto   = document.querySelector('#somAcerto')
+let somErro     = document.querySelector('#somErro')
+let somAplausos = document.querySelector('#somAplausos')
+
+// PERGUNTA
+let numQuestao = document.querySelector('#numQuestao')
+let pergunta   = document.querySelector('#pergunta')
+
+// ALTERNATIVAS
+let a = document.querySelector('#a')
+let b = document.querySelector('#b')
+let c = document.querySelector('#c')
+let d = document.querySelector('#d')
+
+// article com a class questoes
+let articleQuestoes = document.querySelector('.questoes')
+// ol li com as alternativas
+let alternativas = document.querySelector('#alternativas')
+
+const q0 = {
+    numQuestao   : 0,
+    pergunta     : "Pergunta",
+    alternativaA : "Alternativa A",
+    alternativaB : "Alternativa B",
+    alternativaC : "Alternativa C",
+    alternativaD : "Alternativa D",
+    correta      : "0",
+}
+const q1 = {
+    numQuestao   : 1,
+    pergunta     : "Quais as restrições dos veganos no mundo culinário?",
+    alternativaA : "Não consomem carnes de animais.",
+    alternativaB : "Não consomem derivados de animais (leite, ovo, mel..).",
+    alternativaC : "Não consomem carnes de animais, e nem os seus derivados.",
+    alternativaD : "Nenhuma das alternativas acima.",
+    correta      : "Não consomem carnes de animais, e nem os seus derivados.",
+}
+const q2 = {
+    numQuestao   : 2,
+    pergunta     : "Como você acha que a reciclagem é feita?",
+    alternativaA : "A chuva leva até o oceano e faz a reciclagem natural.",
+    alternativaB : "O material utilizado é levado para uma fábrica onde é feito um banquete para os funcionários se servirem com o material.",
+    alternativaC : "Na verdade os materiais como plástico, papel já vem de fabrica reciclados.",
+    alternativaD : "O material utilizado é levado para uma fábrica onde é feita a reciclagem por meio de máquinas.",
+    correta      : "O material utilizado é levado para uma fábrica onde é feita a reciclagem por meio de máquinas.",
+}
+const q3 = {
+    numQuestao   : 3,
+    pergunta     : "Quais os benefícios por adquirir a dieta vegana?",
+    alternativaA : "Evita doenças/Maior controle de doenças.",
+    alternativaB : "Dieta rica em nutrientes.",
+    alternativaC : "Hábitos saudáveis para o corpo e o meio ambiente.",
+    alternativaD : "Todas as alternativas acima estão certas.",
+    correta      : "Todas as alternativas acima estão certas.",
+}
+const q4 = {
+    numQuestao   : 4,
+    pergunta     : "Para uma vida saudável e leve, o que deve ser feito?",
+    alternativaA : "Pedir delivery's de lanches gordurosos e ficar o dia todo em casa.",
+    alternativaB : "Passear ao ar livre e dar uma passada na feira e comprar umas frutinhas.",
+    alternativaC : "Praticar exercícios, academia o dia todo e não dar importância para a família.",
+    alternativaD : "Praticar exercícios, academia  e ao final do dia comer muita besteira do fast food.",
+    correta      : "Passear ao ar livre e dar uma passada na feira e comprar umas frutinhas.",
+}
+const q5 = {
+    numQuestao   : 5,
+    pergunta     : "Qual a principal ideia para a prática do veganismo?",
+    alternativaA : "Preservar a vida animal",
+    alternativaB : "Não gostar de carne",
+    alternativaC : "Estilo de vida mais saudável",
+    alternativaD : "Não gostar de animais ",
+    correta      : "Preservar a vida animal",
+}
+const q6 = {
+    numQuestao   : 6,
+    pergunta     : "A falta de exercícios e alongamento corporal gera...",
+    alternativaA : "Causa mais disposição e alegria.",
+    alternativaB : "Prazer, já que sentir os ossos rangerem libera serotonina, o hormônio do prazer.",
+    alternativaC : "Dor física e atrofiamento dos ossos humanos.",
+    alternativaD : "Nenhuma está correta. A falta de exercícios não afeta em nada.",
+    correta      : "Dor física e atrofiamento dos ossos humanos.",
+}
+const q7 = {
+    numQuestao   : 7,
+    pergunta     : "Quais das alternativas a seguir é um prato proibido na dieta vegana?",
+    alternativaA : "Gelatina",
+    alternativaB : "Paçoca",
+    alternativaC : "Açaí ",
+    alternativaD : "Goiabada",
+    correta      : "Gelatina",
+}
+const q8 = {
+    numQuestao   : 8,
+    pergunta     : "O que acontece se ingerir muitos legumes/saladas todos os dias? ",
+    alternativaA : "Além de fortalecer os ossos e pele, depois de duas semanas tem uma porcentagem grande de virar um Hulk.",
+    alternativaB : "Salada na verdade não ajuda em nada.",
+    alternativaC : "Fortalece os músculos e juntas do corpo humano. Além de previnir gripe. Contém bastante vitamina C.",
+    alternativaD : "São muito bons apenas para os bebês, pois saladas e legumes são ótimos para os ossos, já que, os mesmos precisam crescer.",
+    correta      : "Fortalece os músculos e juntas do corpo humano. Além de previnir gripe. Contém bastante vitamina C.",
+}
+const q9 = {
+    numQuestao   : 9,
+    pergunta     : "Qual desses motivos fazem com que as pessoas desistam antes mesmo de começarem a dieta vegana:",
+    alternativaA : "Consumo maior economicamente, pois as comidas são mais caras.",
+    alternativaB : "Alimentos ruins.",
+    alternativaC : "Frescura, se quisessem ja estariam.",
+    alternativaD : "Falta de esforço, pois é uma dieta facil de fazer.",
+    correta      : "Consumo maior economicamente, pois as comidas são mais caras.",
+}
+const q10 = {
+    numQuestao   : 10,
+    pergunta     : "Bateu fome de coisa gostosa o que eu faço para continuar na minha dieta vegana?",
+    alternativaA : "Desisto e quebro minha dieta vegana.",
+    alternativaB : "Fico passando fome.",
+    alternativaC : "Entro no site Rhavite e vejo delícias veganas.",
+    alternativaD : "Nenhuma das alternativas acima.",
+    correta      : "Entro no site Rhavite e vejo delícias veganas.",
+}
+
+// CONSTANTE COM UM ARRAY DE OBJETOS COM TODAS AS QUESTOES
+const questoes = [q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
+
+let numero = document.querySelector('#numero')
+let total  = document.querySelector('#total')
+
+numero.textContent = q1.numQuestao
+
+let totalDeQuestoes = (questoes.length)-1
+console.log("Total de questões " + totalDeQuestoes)
+total.textContent = totalDeQuestoes
+
+// MONTAR A 1a QUESTAO COMPLETA, para iniciar o Quiz
+numQuestao.textContent = q1.numQuestao
+pergunta.textContent   = q1.pergunta
+a.textContent = q1.alternativaA
+b.textContent = q1.alternativaB
+c.textContent = q1.alternativaC
+d.textContent = q1.alternativaD
+
+// CONFIGURAR O VALUE INICIAL DA 1a QUESTAO COMPLETA
+a.setAttribute('value', '1A')
+b.setAttribute('value', '1B')
+c.setAttribute('value', '1C')
+d.setAttribute('value', '1D')
+
+// PARA MONTAR AS PROXIMAS QUESTOES
+function proximaQuestao(nQuestao) {
+    numero.textContent = nQuestao
+    numQuestao.textContent = questoes[nQuestao].numQuestao
+    pergunta.textContent   = questoes[nQuestao].pergunta
+    a.textContent = questoes[nQuestao].alternativaA
+    b.textContent = questoes[nQuestao].alternativaB
+    c.textContent = questoes[nQuestao].alternativaC
+    d.textContent = questoes[nQuestao].alternativaD
+    a.setAttribute('value', nQuestao+'A')
+    b.setAttribute('value', nQuestao+'B')
+    c.setAttribute('value', nQuestao+'C')
+    d.setAttribute('value', nQuestao+'D')
+    progresso.value = parseInt(progresso.value) + 1
+    //console.log(progresso.value)
+}
+
+// VERIFICAR DUPLO CLICK NAS ALTERNATIVAS
+alternativas.addEventListener('dblclick', () => {
+    //console.log('Duplo clique')
+    pontos -= 10 // tirar 10 pontos em caso de duplo click
+    if(numQuestao.value == 10 && pontos == 110) { pontos = 100 }
+})
+
+function bloquearAlternativas() {
+    alternativas.classList.add('bloqueado')
+}
+
+function desbloquearAlternativas() {
+    alternativas.classList.remove('bloqueado')
+}
+
+function piscarNoAcerto() {
+    articleQuestoes.classList.remove('errou')
+    articleQuestoes.classList.add('acertou')
+}
+
+function piscarNoErro() {
+    articleQuestoes.classList.remove('acertou')
+    articleQuestoes.classList.add('errou')
+}
+
+function tirarPiscar() {
+    articleQuestoes.classList.remove('acertou')
+    articleQuestoes.classList.remove('errou')
+}
+
+function verificarSeAcertou(nQuestao, resposta) {
+
+    let numeroDaQuestao = nQuestao.value
+    console.log("Questão " + numeroDaQuestao)
+
+    let respostaEscolhida = resposta.textContent
+    //console.log("RespU " + respostaEscolhida)
+
+    let certa = questoes[numeroDaQuestao].correta
+    //console.log("RespC " + certa)
+
+    if(respostaEscolhida == certa) {
+        //console.log("Acertou")
+        //respostaEsta.textContent = "Correta 😊"
+        piscarNoAcerto()
+        somAcerto.play()
+        pontos += 10 // pontos = pontos + 10
+        if(nQuestao.value == 1 && pontos == 20) { pontos = 10 }
+    } else {
+        //console.log("Errou!")
+        //respostaEsta.textContent = "Errada 😢"
+        piscarNoErro()
+        somErro.play()
+    }
+    setTimeout(() => {
+        tirarPiscar()
+    }, 200);
+    
+    // atualizar placar
+    placar = pontos
+    instrucoes.textContent = "Pontos " + placar
+
+    // bloquear a escolha de opcoes
+    bloquearAlternativas()
+
+    setTimeout(function() {
+
+        proxima = numeroDaQuestao+1
+
+        if(proxima > totalDeQuestoes) {
+            console.log('Fim do Jogo!')
+            fimDoJogo()
+        } else {
+            proximaQuestao(proxima)
+        }
+    }, 500)
+    desbloquearAlternativas()
+}
+
+function fimDoJogo() {
+
+    somAplausos.play()
+
+    let s = 's'
+    pontos == 0 ? s = '' : s = s
+    instrucoes.textContent = "Fim de Jogo! Você conseguiu " + pontos + " ponto"+ s
+
+    instrucoes.classList.add('placar')
+
+    // OCULTAR O ARTICLE DA QUESTAO
+    articleQuestoes.style.display = 'none'
+
+    setTimeout(function() {
+        pontos = 0 // zerar placar
+        //location.reload();
+        instrucoes.classList.remove('placar')
+        // REINICIAR O JOGO
+        articleQuestoes.style.display = 'block'
+        proximaQuestao(1)
+        instrucoes.textContent = 'Leia a questão e clique na resposta correta'
+    }, 6000)
+
+}
+</script>
+
+</body>
+</html>

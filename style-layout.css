@@ -1,0 +1,103 @@
+    *{
+            margin: 0px;
+            padding: 0px;
+	}
+	.container {
+    width: 1000px;
+    margin: 0px auto;
+	text-align:center;
+	margin-top:50px;
+	}
+	nav{
+		height: 10px;
+	}
+	
+		a {
+	display: block;
+	font-size: 20px;
+	font-family: tw cen mt condensed;
+	}
+	a img{
+		float: center;
+	}
+		ul {
+	list-style-type: none;
+	overflow: hidden;
+	background-color:#34402b ;
+	}
+	li {
+	float: left;
+	line-height: 40px;
+	}
+	li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 0 5 0 5;
+	padding-left: auto;
+	text-decoration: none;
+	float: center;
+	}
+	li .active, .menu:hover{
+	border-bottom: 4px dashed black;
+	color:black;
+	}
+	section{
+		display: flex;
+	}
+	.receitas{
+    width: 228px;
+	height:200px;
+    float: left;
+    margin: 10px;
+	margin-top:100px;
+	}
+	
+	.receitas1{
+    width: 228px;
+	height:200px;
+    float: left;
+    margin: 10px;
+	margin-top:50px;
+	}
+	.left{ 
+	width: 228px;
+	height:200px;
+    float: left;
+    margin: 10px;
+	margin-top:50px;
+	}
+	.receitas img, .receitas1 img{
+    width: 100%;
+	border-radius: 10px;
+	}
+	
+	.receitas img:hover,.receitas1 img:hover  {
+    transition: 0.7s;
+	box-shadow: 0px 0 20px black;
+	filter: opacity(70%);
+	}
+	figcaption p{
+    font-family: tw cen mt condensed;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    }
+	h1{
+	font-family: tw cen mt condensed;
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+	}
+	h3{
+	font-family: tw cen mt condensed;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+	color:#666D61;
+	}
+	footer{
+	margin-top: 50px;
+	width: 100%;
+	}
+	
